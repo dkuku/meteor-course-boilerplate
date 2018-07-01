@@ -1,3 +1,4 @@
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import { Tracker } from 'meteor/tracker';
@@ -12,5 +13,5 @@ Tracker.autorun(() => {
 });
 
 Meteor.startup(() => {
-  ReactDOM.render(routes, document.getElementById('app'));
+    ReactDOM.render(routes, document.getElementById('app'));
 });
