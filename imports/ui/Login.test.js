@@ -16,10 +16,6 @@ if (Meteor.isClient) {
         it('should show error messages', () => {
             const error = 'This is not working';
             const wrapper = shallow(<Login loginWithPassword={()=>{}}/>);
-            //const wrapper = mount(
-            //    <MemoryRouter initialEntries={['/']} initialIndex={0}>
-            //        <Login loginWithPassword={()=>{}}/>
-            //    </MemoryRouter>);
             wrapper.setState({error});
             const errorMessage = wrapper.find('p').text()
             expect(errorMessage).toBe(error);
