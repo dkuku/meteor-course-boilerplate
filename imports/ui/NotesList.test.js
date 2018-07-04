@@ -4,25 +4,10 @@ import { Meteor } from 'meteor/meteor';
 import expect from 'expect';
 import { mount } from 'enzyme';
 
+import { notes } from '../fixtures/fixtures';
 import { NotesList } from './NotesList';
 import NotesListItem from './NotesListItem';
 import NotesListEmptyItem from './NotesListEmptyItem';
-
-const notes = [
-    {
-        _id: '1',
-        title: 'Note1',
-        body: '',
-        updatedAt: 0,
-        userId: 'user1'
-    },{
-        _id: '2',
-        title: '',
-        body: 'Note2',
-        updatedAt: 0,
-        userId: 'user2'
-    }
-]
 
 if (Meteor.isClient){
     describe('NotesList', ()=>{
