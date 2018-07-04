@@ -27,15 +27,10 @@ if (Meteor.isClient) {
             const email='test@we.rt';
             const password='password123';
             const spy = expect.createSpy();
-            const wrapper = mount(
-                <MemoryRouter initialEntries={['/']} initialIndex={0}>
-                    <Signup createUser={spy}/>
-                </MemoryRouter>);
-            wrapper.find({type: 'email'}).instance().value = email
-            wrapper.find({type: 'password'}).instance().value = password
-            wrapper.find('form').simulate('submit');
+            const wrapper = shallow(<Signup createUser={spy}/>);
 
-            expect(spy).toHaveBeenCalled();
+            wrapper.setState({ email, password })
+            wrapper.find('form').simulate('submit', { preventDefault: () => { } });expect(spy).toHaveBeenCalled();
             expect(spy.calls[0].arguments[0]).toEqual({email, password});
 
         })
@@ -43,16 +38,21 @@ if (Meteor.isClient) {
         it('should set error when password too short',()=>{
             const email='test@we.rt';
             const password='password           ';
-            const wrapper = mount(
-                <MemoryRouter initialEntries={['/']} initialIndex={0}>
-                    <Signup createUser={()=>{}}/>
-                </MemoryRouter>);
+            const spy = expect.createSpy();
+            const wrapper = shallow( <Signup createUser={spy}/>);
 
-            wrapper.find({type: 'email'}).instance().value = email
-            wrapper.find({type: 'password'}).instance().value = password
-            wrapper.find('form').simulate('submit');
-
-            expect(wrapper.find(Signup).instance().state.error.length).toBeGreaterThan(0);
+            wrapper.find({ name: 'email' }).simulate('change', {
+                target: {
+                    value: email
+                }
+            });
+            wrapper.find({ name: 'password' }).simulate('change', {
+                target: {
+                    value: password
+                }
+            });
+            wrapper.find('form').simulate('submit', { preventDefault: () => { } });
+            expect(wrapper.state('error').length).toBeGreaterThan(0);
         })
 
         it('should set createUser callback errors',()=>{
@@ -60,20 +60,16 @@ if (Meteor.isClient) {
             const password='password123';
             const reason = 'error reason';
             const spy = expect.createSpy();
-            const wrapper = mount(
-                <MemoryRouter initialEntries={['/']} initialIndex={0}>
-                    <Signup createUser={spy}/>
-                </MemoryRouter>);
+            const wrapper = shallow( <Signup createUser={spy}/>);
 
-            wrapper.find({type: 'email'}).instance().value = email
-            wrapper.find({type: 'password'}).instance().value = password
-            wrapper.find('form').simulate('submit');
+            wrapper.setState({ password })
+            wrapper.find('form').simulate('submit', { preventDefault: () => { } });
             spy.calls[0].arguments[1]({reason});
 
-            expect(wrapper.find(Signup).instance().state.error).toEqual(reason);
+            expect(wrapper.state('error')).toEqual(reason);
 
             spy.calls[0].arguments[1]();
-            expect(wrapper.find(Signup).instance().state.error.length).toBe(0);
+            expect(wrapper.state('error').length).toBe(0);
         })
     });
 }

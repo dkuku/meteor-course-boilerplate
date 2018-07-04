@@ -28,14 +28,10 @@ if (Meteor.isClient) {
             const email='test@we.rt';
             const password='password123';
             const spy = expect.createSpy();
-            const wrapper = mount(
-                <MemoryRouter initialEntries={['/']} initialIndex={0}>
-                    <Login loginWithPassword={spy}/>
-                </MemoryRouter>);
-            wrapper.find({type: 'email'}).instance().value = email
-            wrapper.find({type: 'password'}).instance().value = password
-            wrapper.find('form').simulate('submit');
+            const wrapper = shallow(<Login loginWithPassword={spy} />);
 
+            wrapper.setState({ email, password })
+            wrapper.find('form').simulate('submit', {preventDefault:()=>{}});
             expect(spy).toHaveBeenCalled();
             expect(spy.calls[0].arguments[0]).toEqual({email});
             expect(spy.calls[0].arguments[1]).toBe(password);
@@ -44,18 +40,15 @@ if (Meteor.isClient) {
 
         it('should set loginWithPassword callback errors',()=>{
             const spy = expect.createSpy();
-            const wrapper = mount(
-                <MemoryRouter initialEntries={['/']} initialIndex={0}>
-                    <Login loginWithPassword={spy}/>
-                </MemoryRouter>);
+            const wrapper = shallow( <Login loginWithPassword={spy}/>);
 
-            wrapper.find('form').simulate('submit');
+            wrapper.find('form').simulate('submit', {preventDefault: ()=>{}});
 
             spy.calls[0].arguments[2]({});
-            expect(wrapper.find(Login).instance().state.error.length).toBeGreaterThan(0);
+            expect(wrapper.state('error').length).toBeGreaterThan(0);
 
             spy.calls[0].arguments[2]();
-            expect(wrapper.find(Login).instance().state.error.length).toBe(0);
+            expect(wrapper.state('error').length).toBe(0);
         })
     });
 }
