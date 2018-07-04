@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import PrivateHeader from './PrivateHeader';
 import NotesList from './NotesList';
+import Editor from './Editor';
 
 class Dashboard extends Component {
     componentDidMount(){
@@ -21,6 +22,7 @@ class Dashboard extends Component {
                 <PrivateHeader title="Dashboard"/>
                 <div className="page-content">
                     <NotesList />
+                    <Editor/>
                 </div>
             </div>
         )
