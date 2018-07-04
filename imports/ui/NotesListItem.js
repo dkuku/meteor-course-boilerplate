@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 
-const NotesListItem = (props) => {
+export const NotesListItem = (props) => {
     const { title, updatedAt } = props.note
     return (
         <div>
