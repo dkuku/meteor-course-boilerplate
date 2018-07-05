@@ -11,5 +11,11 @@ export const notes = [
         body: 'Note2',
         updatedAt: 0,
         userId: 'user2'
+    },{
+        _id: '3',
+        title: 'Note3',
+        body: 'Note3',
+        updatedAt: 0,
+        userId: 'user3'
     }
 ]

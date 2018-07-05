@@ -13,7 +13,7 @@ if (Meteor.isClient){
     describe('NotesList', ()=>{
         it('should render NotesListItem for each note',()=>{
             const wrapper = mount(<NotesList notes={notes}/>)
-            expect( wrapper.find('NotesListItem').length).toBe(2);
+            expect( wrapper.find('NotesListItem').length).toBe(3);
             expect( wrapper.find('NotesListEmptyItem').length).toBe(0);
         })
         it('should render NotesListEmptyItem if zero notes',()=>{
