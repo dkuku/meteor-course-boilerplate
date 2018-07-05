@@ -3,9 +3,9 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Notes } from '../api/notes';
 import { withTracker } from 'meteor/react-meteor-data';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { history } from '../routes/AppRouter';
 
 export class Editor extends React.Component {
     constructor(props) {
@@ -16,6 +16,11 @@ export class Editor extends React.Component {
         }
     };
 
+    componentDidMount() {
+        if (this.props.match) {
+            this.props.Session.set('selectedNoteId', this.props.match.params.id)
+        }
+    }
     componentDidUpdate(prevProps, prevState){
         const currentNoteId = this.props.note ? this.props.note._id: undefined;
         const prevNoteId = prevProps && prevProps.note ? prevProps.note._id: undefined;
@@ -74,9 +79,11 @@ Editor.propTypes = {
     note: PropTypes.object,
     meteorCall: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
+    Session: PropTypes.object.isRequired,
+
 };
 
-export default withTracker(() => {
+export default withRouter(withTracker(() => {
     const selectedNoteId = Session.get('selectedNoteId');
 
     return {
@@ -84,5 +91,6 @@ export default withTracker(() => {
         note: Notes.findOne(selectedNoteId),
         meteorCall: Meteor.call,
         history: history,
+        Session
     };
-})(Editor);
+})(Editor));
