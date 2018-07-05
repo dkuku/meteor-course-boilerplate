@@ -24,3 +24,5 @@ fourseven:scss@=3.13.0
 dynamic-import
 underscore
 cultofcoders:mocha
+react-meteor-data
+momentjs:moment
