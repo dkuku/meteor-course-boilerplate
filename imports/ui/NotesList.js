@@ -11,7 +11,7 @@ import NotesListEmptyItem from './NotesListEmptyItem'
 
 export const NotesList = (props) => {
     return (
-        <div>
+        <div className="item-list">
             <NotesListHeader />
             {`NotesList ${ props.notes.length }`}
             {(props.notes.length === 0) ?
