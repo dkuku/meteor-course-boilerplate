@@ -19,7 +19,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                <PrivateHeader title="Dashboard"/>
+                <PrivateHeader title="Notes"/>
                 <div className="page-content">
                     <div className="page-content__sidebar">
                         <NotesList />
