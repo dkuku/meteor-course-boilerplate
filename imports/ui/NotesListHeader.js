@@ -6,8 +6,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 export const NotesListHeader = (props) => {
     return (
-        <div>
-            <button onClick={() => props.meteorCall('notes.insert', (err, res) => {
+        <div className="item-list__header">
+            <button className="button"  onClick={() => props.meteorCall('notes.insert', (err, res) => {
                 if (res) {
                     props.Session.set('selectedNoteId', res);
                 }
