@@ -1,3 +1,13 @@
-# Boilerplate Meteor Project
+# Notes app
 
-This includes a basic react and auth setup.
+## Getting started
+
+This app requires to have meteor installed.
+
+```
+meteor npm install
+```
+
+```
+meteor
+```
